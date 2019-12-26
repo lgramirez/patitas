@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/gndx/patitas.arepa.dev#readme",
   "dependencies": {
+    "fsevents": "^2.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
