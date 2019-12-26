@@ -1,9 +1,9 @@
 import React from 'react';
-import Home from './Home';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Home from '../pages/Home';
+import Header from './Header';
+import Footer from './Footer';
 
-const Layout = () => (
+const Layout = props => (
     <div className="Layout">
         <Header />
         <Home />
