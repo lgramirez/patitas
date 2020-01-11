@@ -1,30 +1,34 @@
 import React from 'react';
+import useGetPets from '../hooks/index';
 
-const Home = () => (
-    <div className="Home">
-        <div className="Home-container">
-            <div className="Home-items">
-                <div className="Pets">
-                    <div className="Pets-cover">
-                        <span>🐶</span>
-                        <div className="Pets-type">
-                            Adopcion
+const Home = () => {
+    const pets = useGetPets()
+    return (
+        <div className="Home">
+            <div className="Home-container">
+                <div className="Home-items">
+                    <div className="Pets">
+                        <div className="Pets-cover">
+                            <span>🐶</span>
+                            <div className="Pets-type">
+                                Adopcion
+                            </div>
                         </div>
-                    </div>
-                    <div className="Pets-content">
-                        <div className="Pets-head">
-                            <h2>Nombre de la mascota</h2>
-                            <i>♂</i>
-                        </div>
-                        <div className="Pets-date">
-                            <i>icono</i>
-                            <span>Fecha</span>
+                        <div className="Pets-content">
+                            <div className="Pets-head">
+                                <h2>Nombre de la mascota</h2>
+                                <i>♂</i>
+                            </div>
+                            <div className="Pets-date">
+                                <i>icono</i>
+                                <span>Fecha</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-);
+    );
+}
 
 export default Home;
