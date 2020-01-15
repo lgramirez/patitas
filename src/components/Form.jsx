@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storage, database } from '../utils/firebase';
 
 const Form = () => {
+    const [petPhoto, setPetPhoto] = useState('');
+    const [sendForm, setSendForm] = useState(false);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -14,7 +16,7 @@ const Form = () => {
             'description': form.get('description'),
             'gender': form.get('gender'),
             'name': form.get('name'),
-            'photo': '',
+            'photo': petPhoto,
             'profilePic': '',
             'type': form.get('type'),
             'userContact': '',
@@ -22,8 +24,8 @@ const Form = () => {
         }
 
         database.ref('pets').push(data)
-            .then(response => console.log(response))
-            .catch(error => console.log(error))
+            .then(() => setSendForm(true))
+            .catch(() => setSendForm(false))
     }
 
     const onChange = event => {
@@ -35,7 +37,7 @@ const Form = () => {
         uploadFile
             .then((snapshot) => {
                 snapshot.ref.getDownloadURL()
-                    .then(downloadURL => console.log(downloadURL));
+                    .then(downloadURL => setPetPhoto(downloadURL));
             });
     }
 
@@ -44,29 +46,36 @@ const Form = () => {
         <div className="Form-head">
             <h2>Dar en Adopción</h2>
         </div>
-        <div className="Form-item">
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="name" placeholder="Nombre de tu mascota"/>
-                <input type="text" name="description" placeholder="Describe tu mascota"/>
-                <select name="type" id="type">
-                    <option disabled selected>Seleccionar...</option>
-                    <option value="cat">Gato</option>
-                    <option value="dog">Perro</option>
-                </select>
-                <select name="gender" id="gender">
-                    <option disabled selected>Seleccionar...</option>
-                    <option value="female">Femenino</option>
-                    <option value="male">Masculino</option>
-                </select>
-                <select name="adopt" id="gender">
-                    <option disabled selected>Seleccionar...</option>
-                    <option value="true">Dar en Adopción</option>
-                    <option value="false">Cuidar</option>
-                </select>
-                <input type="file" onChange={onChange} name="photo"/>
-                <button>Enviar</button>
-            </form>
-        </div>
+        {sendForm &&
+            <div className="Form-send">
+                <span>¡Guardado con Éxito!</span>
+            </div>
+        }
+        {!sendForm &&
+            <div className="Form-item">
+                <form onSubmit={handleSubmit}>
+                    <input type="text" name="name" placeholder="Nombre de tu mascota"/>
+                    <input type="text" name="description" placeholder="Describe tu mascota"/>
+                    <select name="type" id="type">
+                        <option disabled selected>Seleccionar...</option>
+                        <option value="cat">Gato</option>
+                        <option value="dog">Perro</option>
+                    </select>
+                    <select name="gender" id="gender">
+                        <option disabled selected>Seleccionar...</option>
+                        <option value="female">Femenino</option>
+                        <option value="male">Masculino</option>
+                    </select>
+                    <select name="adopt" id="gender">
+                        <option disabled selected>Seleccionar...</option>
+                        <option value="true">Dar en Adopción</option>
+                        <option value="false">Cuidar</option>
+                    </select>
+                    <input type="file" onChange={onChange} name="photo"/>
+                    <button>Enviar</button>
+                </form>
+            </div>
+        }
     </div>
     );
 }
