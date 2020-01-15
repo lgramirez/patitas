@@ -8,7 +8,7 @@ const Nav = () => (
                 <Link to="/">Inicio</Link>
             </li>
             <li>
-                <Link to="/mascotas">Dar en Adopción</Link>
+                <Link to="/panel">Dar en Adopción</Link>
             </li>
             <li>
                 <Link to="/login">Mi Cuenta</Link>
