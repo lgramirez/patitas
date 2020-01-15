@@ -3,6 +3,29 @@ import { storage, database } from '../utils/firebase';
 
 const Form = () => {
 
+    const handleSubmit = event => {
+        event.preventDefault();
+        const form = new FormData(event.target);
+        const newDate = new Date().toISOString();
+
+        const data = {
+            'adopt': form.get('adopt'),
+            'date': newDate,
+            'description': form.get('description'),
+            'gender': form.get('gender'),
+            'name': form.get('name'),
+            'photo': '',
+            'profilePic': '',
+            'type': form.get('type'),
+            'userContact': '',
+            'userName': ''
+        }
+
+        database.ref('pets').push(data)
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
+    }
+
     const onChange = event => {
         const file = event.target.files[0];
         const storageRef = storage.ref();
@@ -22,7 +45,7 @@ const Form = () => {
             <h2>Dar en Adopción</h2>
         </div>
         <div className="Form-item">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <input type="text" name="name" placeholder="Nombre de tu mascota"/>
                 <input type="text" name="description" placeholder="Describe tu mascota"/>
                 <select name="type" id="type">
