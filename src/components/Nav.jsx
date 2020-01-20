@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const Nav = () => (
+const Nav = props => (
     <div className="Nav">
         <ul>
             <li>
@@ -11,10 +12,21 @@ const Nav = () => (
                 <Link to="/panel">Dar en Adopción</Link>
             </li>
             <li>
-                <Link to="/login">Mi Cuenta</Link>
+                {props.login ?
+                    <Link to="/panel">Mi Cuenta</Link>
+                :
+                    <Link to="/login">Iniciar Sesión</Link>
+                }
+                
             </li>
         </ul>
     </div>
 );
 
-export default Nav;
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+    };
+};
+
+export default connect(mapStateToProps)(Nav);
