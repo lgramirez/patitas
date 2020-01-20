@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import Login from '../pages/Login';
 
 const PetInfo = props => {
+
+    const [adopt, setAdopt] = useState(false);
+
     return (
         <div className="PetInfo">
             <div className="PetInfo-container">
@@ -21,16 +26,30 @@ const PetInfo = props => {
                             </i>
                         </p>
                         <div className="PetInfo-tyoe">
-                            <button>Adoptar</button>
+                            <button
+                                className="PetInfo-btn"
+                                onClick={() => setAdopt(!adopt)}
+                            >
+                                Adoptar
+                            </button>
                         </div>
                         <div className="PetInfo-profile-adopt">
-                            <div className="PetInfo-item">
-                                <h3>Datos de Contacto:</h3>
-                                <span>Dueño:</span>
-                                <h4>Gonzalo Ramirez</h4>
-                                <span>Correo:</span>
-                                <h4>gramirez.developer@gmail.com</h4>
-                            </div>
+                            {adopt &&
+                                <div>
+                                    {props.login ?
+                                        <div className="PetInfo-item">
+                                            <h3>Datos de Contacto:</h3>
+                                            <span>Dueño:</span>
+                                            <h4>{props.pet.userName}</h4>
+                                            <span>Correo:</span>
+                                            <h4>{props.pet.userContact}</h4>
+                                        </div>
+                                        :
+                                        <Login />
+                                    }
+                                </div>
+                            }
+                            
                         </div>
                     </div>
                 </div>
@@ -39,4 +58,10 @@ const PetInfo = props => {
     );
 }
 
-export default PetInfo;
+const mapStateToProps = state => {
+    return {
+        login: state.login
+    }
+}
+
+export default connect(mapStateToProps)(PetInfo);
