@@ -9,7 +9,7 @@ const Nav = props => (
                 <Link to="/">Inicio</Link>
             </li>
             <li>
-                <Link to="/panel">Dar en Adopción</Link>
+                <a onClick={props.showModal}>Dar en Adopción</a>
             </li>
             <li>
                 {props.login ?
