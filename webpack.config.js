@@ -7,6 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    // remove next line to prepare for deploy otherwise is used for live reload
     publicPath: '/'
   },
   resolve: {
